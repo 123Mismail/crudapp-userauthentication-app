@@ -18,8 +18,10 @@ const SignUpPage = () => {
          
    const postUserData=async()=>{
    try {
- 
-    await axios.post("/api/users/signup",user);
+    if(user.userName.length> 4 && user.email.length>4 && user.password.length>3  ){
+      
+        await axios.post("/api/users/signup",user);
+    }
      
     if(user.userName.length> 4 && user.email.length>4 && user.password.length>3  ){
         route.push('/verifyemail')
