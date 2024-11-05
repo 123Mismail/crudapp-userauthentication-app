@@ -21,7 +21,7 @@ const SignInPage = () => {
     
     try {
        
-        const logedInUser= await axios.post("/api/users/signin",user);
+       await axios.post("/api/users/signin",user);
        
         
      if(user.email.length >4 && user.password.length>3 ){
@@ -64,7 +64,7 @@ const SignInPage = () => {
       
             </div>
           {user.email.length >0 && user.password.length >0 && loading ?  <LoadingPage/> : "" }
-            or you have already account? <Link href={'/signup'}><button className='px-5 py-3 rounded-2xl border border-white'  >Sign Up</button></Link>
+            or if you dont  have already account? <Link href={'/signup'}><button className='px-5 py-3 rounded-2xl border border-white'  >Sign Up</button></Link>
     </div>
    
    </section>

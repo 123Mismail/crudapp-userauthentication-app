@@ -37,15 +37,7 @@ const SignUpPage = () => {
     setLoading(false);
        
    }
-    //    useEffect(()=>{
-
-    //     if(submit && user.userName.length>0 && user.email.length>0 && user.password.length>0){
-    //          setLoading(true)
-    //         postUserData();
-    //         setSubmitData(false);
-    //         setLoading(false)
-    //     }
-    //    },[submit]);    
+    console.log(user ,"user who have just signup");  
    return ( 
     <section>
     <div className='relative flex flex-col justify-center items-center p-5 max-w-[600px] border border-gray-600 mx-auto py-4'>

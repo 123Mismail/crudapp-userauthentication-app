@@ -22,21 +22,25 @@ const ItemsList = () => {
        }
         // console.log(data ,"fetching data from data base")
     }
-
+     const loadData=async ()=>{
+      setLoading(false);
+     await  fetchData()
+    setLoading(false)
+     }
    
      
    useEffect(()=>{
-      setLoading(true);
-    fetchData()
-    setLoading(false)
+    loadData();
    },[items,setItems]);
   return (
     <div className='relative'>
-
+ 
+              
         {items &&  items.map((item:any)=>(
             // {item.title !== "" && }
              <div key={item._id} className='flex justify-between items-center px-4 py-2 border border-black mt-2'>
     
+   
              <div className='gap-2'>
           
              <h2 className='text-xl font-bold'>{item.title}</h2>
@@ -62,8 +66,7 @@ const ItemsList = () => {
        
              </div>
         ))}
-  {loading ?   <LoadingPage /> : ""}
- 
+            {loading  ? <LoadingPage/> :""}
             </div>
  
   )
