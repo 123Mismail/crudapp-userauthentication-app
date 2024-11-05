@@ -6,7 +6,7 @@ import LoadingPage from './loadingPage'
  
 const ItemsList = () => {
     const [loading , setLoading] = useState(false)
-    const [items , setItems] =useState([])
+    const [items , setItems] =useState<any>([])
     const fetchData=async()=>{
        try {
         const response=await fetch('/api/topics',{
@@ -31,7 +31,8 @@ const ItemsList = () => {
      
    useEffect(()=>{
     loadData();
-   },[items,setItems]);
+   },[items]);
+ 
   return (
     <div className='relative'>
  
@@ -55,7 +56,7 @@ const ItemsList = () => {
            <DeleteBtn  id={item._id}/>
             <Link href={`/editItem/${item._id}`}>
              
-             <button className='px-3 py-2 text-xl font-semibold bg-green-500 rounded-lg' onClick={()=>setLoading(true)}>edit</button> 
+             <button type='button' className='px-3 py-2 text-xl font-semibold bg-green-500 rounded-lg' onClick={()=>setLoading(true)}>edit</button> 
           </Link>
           <Link href={"/addMore"}> <button className='bg-blue-500  px-4 py-2 text-xl font-semibold rounded-lg'
           onClick={()=>setLoading(true)}

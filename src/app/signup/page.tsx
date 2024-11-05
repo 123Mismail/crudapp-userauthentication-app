@@ -15,11 +15,12 @@ const SignUpPage = () => {
     });
     const route=useRouter()
      
-       // sign up functionality
+         
    const postUserData=async()=>{
    try {
+ 
     await axios.post("/api/users/signup",user);
-     console.log(user,"users at signup page")
+     
     if(user.userName.length> 4 && user.email.length>4 && user.password.length>3  ){
         route.push('/verifyemail')
     }else{
@@ -37,7 +38,7 @@ const SignUpPage = () => {
     setLoading(false);
        
    }
-    console.log(user ,"user who have just signup");  
+      
    return ( 
     <section>
     <div className='relative flex flex-col justify-center items-center p-5 max-w-[600px] border border-gray-600 mx-auto py-4'>
