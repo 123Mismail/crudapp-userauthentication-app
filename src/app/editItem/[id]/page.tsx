@@ -5,7 +5,7 @@ import React from 'react'
   
   const fetchDataById= async(id:string)=>{
         
-    const response= await fetch(`http://localhost:3000/api/topics/${id}`,{cache:"no-store"});
+    const response= await fetch(`/api/topics/${id}`,{cache:"no-store"});
     if(!response.ok){
       console.log("failed to fetch data")
     }else{
