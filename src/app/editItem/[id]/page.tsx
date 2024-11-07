@@ -1,4 +1,4 @@
-   
+   "use client"
  
   import EditForm from '@/app/components/editForm'
 import React from 'react'
@@ -25,6 +25,7 @@ import React from 'react'
 
      // const data = await fetchDataById(id);
      const data=  await fetchDataById(id);
+
   // Handle case where data or topic is missing
   if (!data || !data.topic) {
     console.error('Topic not found or data is undefined');
