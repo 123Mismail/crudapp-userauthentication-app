@@ -1,64 +1,47 @@
 
 
-// import mongoose from "mongoose";
-//  let isConnected=false;
-// export async function connenctDb(){
- 
-//     try {
-//         if(isConnected){
-//             return  console.log("you are already connected to the database");
-//         }else{
-//             await mongoose.connect(process.env.MONGODB_URI!)
-       
-//             const connection=mongoose.connection
-//             connection.on("connected",()=>{
-//                   console.log("databse is connected successfully!")
-//                   isConnected=true;
-//             });
-//             connection.on(("err"),(error)=>{
-//                    console.log("mongo db connection error ,please mae sure the you database is up and runnung"+error)
-//             });
-//         }
-      
-//         // process.exit(); 
-
-//     } catch (error) {
-//         console.log("Something went wrong while connecting to the database!");
-//         console.log(error);
-//     }
-// }
-
 
 import mongoose from "mongoose";
 
-// Optional: Set max listeners limit globally, if needed
+// Set the max listeners limit if needed
 import { EventEmitter } from "events";
 EventEmitter.defaultMaxListeners = 20;
 
+let isConnected = false;
+
 export async function connenctDb() {
-    if (mongoose.connection.readyState === 1) {
+    // Check if already connected
+    if (isConnected) {
         console.log("You are already connected to the database.");
         return;
     }
-  
+    
     try {
-        await mongoose.connect(process.env.MONGODB_URI!);
+        await mongoose.connect(process.env.MONGODB_URI!, {
+             
+             
+            connectTimeoutMS: 20000, // 20 seconds
+            socketTimeoutMS: 20000, // 20 seconds
+        });
 
+        isConnected = true;
         console.log("Database connection established successfully!");
 
+        // Add event listeners once after connection is successful
+        mongoose.connection.on("connected", () => {
+            console.log("MongoDB connected successfully!");
+        });
+
+        mongoose.connection.on("error", (error) => {
+            console.error("MongoDB connection error. Please ensure your database is running: " + error);
+        });
+
+        mongoose.connection.on("disconnected", () => {
+            console.log("MongoDB disconnected!");
+            isConnected = false;
+        });
+
     } catch (error) {
-        console.error("Something went wrong while connecting to the database!");
-        console.error(error);
+        console.error("Error while connecting to the database:", error);
     }
-}
-
-// Attach event listeners only once
-if (mongoose.connection.readyState === 0) {  // Avoid re-adding listeners if already connected
-    mongoose.connection.on("connected", () => {
-        console.log("Database is connected successfully!");
-    });
-
-    mongoose.connection.on("error", (error) => {
-        console.error("MongoDB connection error. Please make sure your database is running: " + error);
-    });
 }
