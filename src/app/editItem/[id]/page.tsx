@@ -1,4 +1,4 @@
-   "use client"
+   
  
   import EditForm from '@/app/components/editForm'
 import React from 'react'

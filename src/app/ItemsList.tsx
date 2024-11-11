@@ -32,42 +32,46 @@ const ItemsList = () => {
    useEffect(()=>{
     loadData();
    },[items]);
- 
+      
   return (
     <div className='relative'>
  
-              
-        {items &&  items.map((item:any)=>(
-            // {item.title !== "" && }
-             <div key={item._id} className='flex justify-between items-center px-4 py-2 border border-black mt-2'>
-    
-   
-             <div className='gap-2'>
-          
-             <h2 className='text-xl font-bold'>{item.title}</h2>
-             <div className='py-2 text-lg w-[90%] line-clamp-1'>
-                 {item.description}
-     
-             </div>
-            
-         </div>
+              {loading ? <div className='flex justify-center items-center '>
+                <p className='text-lg '>
+                   Loading data please wait
+                </p>
+              </div>: <div>
+                            {items &&  items.map((item:any)=>(
+                              // {item.title !== "" && }
+                               <div key={item._id} className='flex justify-between items-center px-4 py-2 border border-black mt-2'>
+                      
+                     
+                               <div className='gap-2'>
+                            
+                               <h2 className='text-xl font-bold'>{item.title}</h2>
+                               <div className='py-2 text-lg w-[90%] line-clamp-1'>
+                                   {item.description}
+                       
+                               </div>
+                              
+                           </div>
+                          
+                           <div className='space-x-3 flex justify-center'>
+                             <DeleteBtn  id={item._id}/>
+                              <Link href={`/editItem/${item._id}`}>
+                               <button type='button' className='px-3 py-2 text-xl font-semibold bg-green-500 rounded-lg' onClick={()=>setLoading(true)}>edit</button> 
+                            </Link>
+                            <Link href={"/addMore"}> <button className='bg-blue-500  px-4 py-2 text-xl font-semibold rounded-lg'
+                            onClick={()=>setLoading(true)}
+                            >
+                                      Add
+                                  </button></Link>
+                           </div>
+                         
+                               </div>
+                          ))}</div> 
+              } 
         
-         <div className='space-x-3 flex justify-center'>
-           <DeleteBtn  id={item._id}/>
-            <Link href={`/editItem/${item._id}`}>
-             
-             <button type='button' className='px-3 py-2 text-xl font-semibold bg-green-500 rounded-lg' onClick={()=>setLoading(true)}>edit</button> 
-          </Link>
-          <Link href={"/addMore"}> <button className='bg-blue-500  px-4 py-2 text-xl font-semibold rounded-lg'
-          onClick={()=>setLoading(true)}
-          >
-                    Add
-                </button></Link>
-         </div>
-       
-             </div>
-        ))}
-            {loading  ? <LoadingPage/> :""}
             </div>
  
   )
